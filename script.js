@@ -13,3 +13,20 @@ function getComputerChoice() {
             return "Scissor";
     }
 }
+
+function getPlayersChoice() {
+    
+    let keepGoing = true;
+    let userChoice;
+
+    while(keepGoing){
+        var userInput = prompt("Choose your weapon:")
+
+        if(userInput.toLowerCase() === "rock" || userInput.toLowerCase() === "paper" || userInput.toLowerCase() === "scissor"){
+            userChoice = userInput.charAt(0).toUpperCase() + userInput.slice(1);
+            keepGoing = false;
+        }
+    }
+
+    return userChoice;
+}
