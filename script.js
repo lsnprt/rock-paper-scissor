@@ -1,32 +1,60 @@
-//Get a random number between 1 and 3
-//1 = rock 2 = scissor 3 = paper
+function playOneGame() {
+    const playersChoice = getPlayersChoice();
+    const computersChoice = getComputersChoice();
 
-function getComputerChoice() {
-    let computerChoiceNumber = (Math.floor(Math.random() * 100)) % 3;
+    console.log(calculateWinner(playersChoice, computersChoice));
+}
+
+function getComputersChoice() {
+    let computerChoiceNumber = (Math.floor(Math.random() * 3));
 
     switch(computerChoiceNumber){
         case 0:
-            return "Rock";
+            return "rock";
         case 1: 
-            return "Paper";
+            return "paper";
         case 2:
-            return "Scissor";
+            return "scissor";
     }
 }
 
 function getPlayersChoice() {
     
     let keepGoing = true;
-    let userChoice;
+    let playersChoice;
 
     while(keepGoing){
         var userInput = prompt("Choose your weapon:")
+        userInput = userInput.toLowerCase()
 
-        if(userInput.toLowerCase() === "rock" || userInput.toLowerCase() === "paper" || userInput.toLowerCase() === "scissor"){
-            userChoice = userInput.charAt(0).toUpperCase() + userInput.slice(1);
+        if(userInput === "rock" || userInput === "paper" || userInput === "scissor"){
+            playersChoice = userInput;
             keepGoing = false;
         }
     }
 
-    return userChoice;
+    return playersChoice;
+}
+
+function calculateWinner(playersChoice, computersChoice){
+    if (playersChoice === computersChoice){
+        return "It's a tie!"
+    }
+
+    if (doesPlayerWin(playersChoice, computersChoice)){
+        return `You win, ${playersChoice} beats ${computersChoice}!`;
+    }
+
+    return `Computer wins, ${computersChoice} beats ${playersChoice}`; 
+}
+
+function doesPlayerWin(playersChoice, computersChoice){
+    switch(playersChoice){
+        case "rock":
+            return computersChoice === "scissor" ? true : false;
+        case "paper":
+            return computersChoice === "rock" ? true : false;
+        case "scissor":
+            return computersChoice === "paper" ? true : false;
+    }
 }
