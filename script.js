@@ -1,8 +1,28 @@
-function playOneGame() {
+function Game() {
+    let playersScore = 0;
+    let computersScore = 0;
+
+    for(let i = 0; i < 5; i++){
+        let winner = playOneRound();
+        
+        if (winner === "Y"){
+            playersScore++;
+        }else if (winner === "C"){
+            computersScore++;
+        }
+    }
+
+    return playersScore === computersScore? "It's a tie!" : `${(playersScore > computersScore? "You win!" : "Computer wins!")}`;
+}
+
+function playOneRound() {
     const playersChoice = getPlayersChoice();
     const computersChoice = getComputersChoice();
 
-    console.log(calculateWinner(playersChoice, computersChoice));
+    const result = calculateWinner(playersChoice, computersChoice);
+    console.log(result);
+
+    return result.charAt(0);
 }
 
 function getComputersChoice() {
@@ -36,9 +56,9 @@ function getPlayersChoice() {
     return playersChoice;
 }
 
-function calculateWinner(playersChoice, computersChoice){
+function calculateWinner(playersChoice, computersChoice) {
     if (playersChoice === computersChoice){
-        return "It's a tie!"
+        return "It's a tie!";
     }
 
     if (doesPlayerWin(playersChoice, computersChoice)){
@@ -48,7 +68,7 @@ function calculateWinner(playersChoice, computersChoice){
     return `Computer wins, ${computersChoice} beats ${playersChoice}`; 
 }
 
-function doesPlayerWin(playersChoice, computersChoice){
+function doesPlayerWin(playersChoice, computersChoice) {
     switch(playersChoice){
         case "rock":
             return computersChoice === "scissor" ? true : false;
