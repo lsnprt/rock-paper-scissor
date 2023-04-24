@@ -4,18 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
 <body>
-    <div class="human-counter" value="Human"></div>
-    <div class="machine-counter" value="Machine"></div>
-    <div class="gamepad">
-        <button>Rock</button>
-        <button>Paper</button>
-        <button>Scissor</button>
-    </div> 
-    <div class="result"></div>
-    <button class="reset">Reset</button>
+    <div class="game-window">
+        <div class="counter">
+            <h2>Player: </h2>
+            <div class="human-counter" value="Human"></div>
+        </div>
+        <div class="center">
+            <h1>Rock Paper Scissor</h1>
+            <div class="gamepad">
+                <div class="card">
+                    <img src="./icons/Rock.png" alt="Rock">
+                    <button>Rock</button>
+                </div>
+                <div class="card">
+                    <img src="./icons/Paper.png" alt="Paper">
+                    <button>Paper</button>
+                </div>
+                <div class="card">
+                    <img src="./icons/Scissor.png" alt="Scissor">
+                    <button>Scissor</button>
+                </div>
+            </div> 
+            <div class="result"></div>
+            <button class="reset">Reset</button>
+        </div>
+        <div class="counter">
+            <h2>Computer: </h2>
+            <div class="machine-counter" value="Machine"></div>
+        </div>
+    </div>
     <script src="./script.js"></script>
 </body>
 </html>
