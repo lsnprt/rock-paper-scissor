@@ -1,14 +1,25 @@
+window.addEventListener("load", Game);
+
 function Game() {
-    const buttons = document.querySelectorAll("button");
+    const buttons = document.querySelectorAll(".gamepad > button");
     const buttonsArray = Array.from(buttons);
     
+    let keepGoing = true;
+    
     buttonsArray.map(button => {
-        button.addEventListener("click", (e) => {
+        button.addEventListener("click", function eventHandler (e) {
+            if(!keepGoing){
+                button.removeEventListener("click", eventHandler);
+                return;
+            }
+
             const playersChoice = e.target.innerText.toLowerCase();
-            const winner = playOneRound(playersChoice);
-            updateScores(winner);
+            keepGoing = playOneRound(playersChoice);
         })
-    });  
+    });
+
+    const reset = document.querySelector(".reset");
+    reset.addEventListener("click", Game);
     
     const playerCounter = document.querySelector(".human-counter");
     const computerCounter = document.querySelector(".machine-counter");
@@ -22,11 +33,29 @@ function Game() {
 }
 
 function updateScores (winner){
+    const playerCounter = document.querySelector(".human-counter");
+    const computerCounter = document.querySelector(".machine-counter");
+    
+    let playersScore = parseInt(playerCounter.innerText);
+    let computersScore = parseInt(computerCounter.innerText);
+    
     if (winner === "Y"){
-        playerCounter.innerText = playersScore++;
+        playerCounter.innerText = ++playersScore;
     } else if (winner === "C"){
-        computerCounter.innerText = computersScore++;
+        computerCounter.innerText = ++computersScore;
     }
+
+    if(playersScore === 5 || computersScore === 5){
+        playersScore === 5 ? endGame(playerCounter) : endGame(computerCounter);
+        return false;
+    }
+
+    return true;
+}
+
+function endGame(winningCounter){
+    const resultDiv = document.querySelector(".result");
+    resultDiv.innerText = `${winningCounter.attributes.value.textContent} wins!`;
 }
 
 function playOneRound(playersChoice, playersScore, computersScore) {
@@ -37,7 +66,8 @@ function playOneRound(playersChoice, playersScore, computersScore) {
     const resultDiv = document.querySelector(".result");
     resultDiv.innerText = result;
 
-    return result.charAt(0);
+    const keepPlaying = updateScores(result.charAt(0));
+    return keepPlaying;
 }
 
 function getComputersChoice() {
