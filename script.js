@@ -1,7 +1,7 @@
 window.addEventListener("load", Game);
 
 function Game() {
-    const buttons = document.querySelectorAll(".gamepad > button");
+    const buttons = document.querySelectorAll(".card > button");
     const buttonsArray = Array.from(buttons);
     
     let keepGoing = true;
@@ -23,7 +23,9 @@ function Game() {
     
     const playerCounter = document.querySelector(".human-counter");
     const computerCounter = document.querySelector(".machine-counter");
+    let result = document.querySelector(".result");
     
+    result.innerText = "";
     let playersScore = 0;
     let computersScore = 0;
 
