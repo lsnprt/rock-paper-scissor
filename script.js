@@ -1,26 +1,41 @@
 function Game() {
+    const buttons = document.querySelectorAll("button");
+    const buttonsArray = Array.from(buttons);
+    
+    buttonsArray.map(button => {
+        button.addEventListener("click", (e) => {
+            const playersChoice = e.target.innerText.toLowerCase();
+            const winner = playOneRound(playersChoice);
+            updateScores(winner);
+        })
+    });  
+    
+    const playerCounter = document.querySelector(".human-counter");
+    const computerCounter = document.querySelector(".machine-counter");
+    
     let playersScore = 0;
     let computersScore = 0;
 
-    for(let i = 0; i < 5; i++){
-        let winner = playOneRound();
-        
-        if (winner === "Y"){
-            playersScore++;
-        }else if (winner === "C"){
-            computersScore++;
-        }
-    }
-
-    return playersScore === computersScore? "It's a tie!" : `${(playersScore > computersScore? "You win!" : "Computer wins!")}`;
+    playerCounter.innerText = playersScore;
+    computerCounter.innerText = computersScore;
+    
 }
 
-function playOneRound() {
-    const playersChoice = getPlayersChoice();
+function updateScores (winner){
+    if (winner === "Y"){
+        playerCounter.innerText = playersScore++;
+    } else if (winner === "C"){
+        computerCounter.innerText = computersScore++;
+    }
+}
+
+function playOneRound(playersChoice, playersScore, computersScore) {
     const computersChoice = getComputersChoice();
 
     const result = calculateWinner(playersChoice, computersChoice);
-    console.log(result);
+    
+    const resultDiv = document.querySelector(".result");
+    resultDiv.innerText = result;
 
     return result.charAt(0);
 }
